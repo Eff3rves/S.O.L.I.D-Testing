@@ -2,25 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileCode : MonoBehaviour
+public abstract class ProjectileCode : MonoBehaviour
 {
-    private Rigidbody rb;
+    protected Rigidbody rb;
     [SerializeField]
-    private Transform originalLocation;
+    protected Transform originalLocation;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset();
-        }
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
