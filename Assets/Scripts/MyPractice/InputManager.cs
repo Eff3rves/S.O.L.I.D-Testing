@@ -11,25 +11,18 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     float movementSpeed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void Handle_Movement(float horizontalInput, float verticalInput)
     {
-        //controlling forward and right left movement
-        rightdInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
+        rightdInput = horizontalInput;
+        forwardInput = verticalInput;
         Vector3 cameraForward = Camera.main.transform.forward;
-        
+
         Vector3 cameraRight = Camera.main.transform.right;
         //Debug.Log(cameraForward);
-        cameraForward = new Vector3(cameraForward.x,0,cameraForward.z);
+        cameraForward = new Vector3(cameraForward.x, 0, cameraForward.z);
         cameraRight = new Vector3(cameraRight.x, 0, cameraRight.z);
-        transform.position += cameraForward.normalized * forwardInput*movementSpeed;
-        transform.position += cameraRight.normalized * rightdInput*movementSpeed;
+        transform.position += cameraForward.normalized * forwardInput * movementSpeed * 0.01f;
+        transform.position += cameraRight.normalized * rightdInput * movementSpeed * 0.01f;
     }
 }

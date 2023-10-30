@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FPSController : MonoBehaviour
 {
-
-
-    public Transform firePoint;
-
+    [SerializeField]
+    HandleCamera handleCamera;
+    [SerializeField]
+    InputManager HandleMovement;
+    [SerializeField]
+    HandleShooting handleShooting;
 
     private void Start()
     {
@@ -18,17 +20,10 @@ public class FPSController : MonoBehaviour
     private void Update()
     {
 
-
-        HandleShooting();
+        HandleMovement.Handle_Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        handleShooting.Handle_Shooting();
+        handleCamera.HandleCameraRotation(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
 
-
-
-
-
-    private void HandleShooting()
-    {
-
-    }
 
 }

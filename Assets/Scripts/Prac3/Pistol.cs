@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Pistol : BaseWeapon
 {
+    [SerializeField]
+    CameraShake cameraShake;
     private void Start()
     {
-        fireRate = 2;
-        cooldown = 0;
+        fireRate = 0.5f;
+        cooldown = 0.5f;
 
     }
     // Update is called once per frame
     void Update()
     {
         cooldown += Time.deltaTime;
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+
     }
 
 

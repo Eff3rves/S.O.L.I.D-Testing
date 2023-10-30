@@ -16,18 +16,13 @@ public class HandleCamera : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        HandleCameraRotation();
-    }
 
-    private void HandleCameraRotation()
+    public void HandleCameraRotation(float axisX, float axisY)
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseX = axisX * mouseSensitivity;
         horizontalRotation += mouseX;
 
-        verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        verticalRotation -= axisY * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
 
         transform.Rotate(0, mouseX, 0);

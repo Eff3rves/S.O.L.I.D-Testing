@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandleShooting : MonoBehaviour
 {
-    public List<BaseWeapon> weaponList; // since this is parent class, all child classes can be put into it
+    public List<GameObject> weaponList; // since this is parent class, all child classes can be put into it
     private int currentWeapon;
     // Start is called before the first frame update
     void Start()
@@ -19,15 +19,15 @@ public class HandleShooting : MonoBehaviour
         {
             if (currentWeapon == weaponList.Count - 1)
             {
-                weaponList[currentWeapon].gameObject.SetActive(false);
+                weaponList[currentWeapon].SetActive(false);
                 currentWeapon = 0;
-                weaponList[currentWeapon].gameObject.SetActive(true);
+                weaponList[currentWeapon].SetActive(true);
             }
             else
             {
-                weaponList[currentWeapon].gameObject.SetActive(false);
+                weaponList[currentWeapon].SetActive(false);
                 currentWeapon++;
-                weaponList[currentWeapon].gameObject.SetActive(true);
+                weaponList[currentWeapon].SetActive(true);
                 
             }
         }
@@ -35,25 +35,28 @@ public class HandleShooting : MonoBehaviour
         {
             if (currentWeapon == 0)
             {
-                weaponList[currentWeapon].gameObject.SetActive(false);
+                weaponList[currentWeapon].SetActive(false);
                 currentWeapon = weaponList.Count - 1;
-                weaponList[currentWeapon].gameObject.SetActive(true);
+                weaponList[currentWeapon].SetActive(true);
             }
             else
             {
-                weaponList[currentWeapon].gameObject.SetActive(false);
+                weaponList[currentWeapon].SetActive(false);
                 currentWeapon--;
-                weaponList[currentWeapon].gameObject.SetActive(true);
+                weaponList[currentWeapon].SetActive(true);
             }
         }
-        Handle_Shooting();
+
     }
 
-    void Handle_Shooting()
+    public bool Handle_Shooting()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            weaponList[currentWeapon].Shoot();
+            weaponList[currentWeapon].GetComponent<BaseWeapon>().Shoot();
+            weaponList[currentWeapon].GetComponent<CameraShake>().Shake();
+            return true;
         }
+        return false;
     }
 }
