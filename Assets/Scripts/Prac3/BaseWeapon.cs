@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    public GameObject bulletPrefab;
     protected float fireRate;
     protected float cooldown;
     public abstract bool Shoot();

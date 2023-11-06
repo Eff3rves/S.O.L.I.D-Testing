@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    private int health = 20;
+    private float health = 20;
 
-    public void OnDamaged(int damage)
+    public void OnDamaged(float damage)
     {
         health -= damage;
         if (health <= 0) Destroy();
