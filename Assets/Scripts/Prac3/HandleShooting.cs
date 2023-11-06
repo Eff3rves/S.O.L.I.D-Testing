@@ -9,12 +9,21 @@ public class HandleShooting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(currentWeapon = 0; currentWeapon < weaponList.Count-1; currentWeapon++)
+        {
+            if (weaponList[currentWeapon].gameObject.activeSelf)
+            {
+                break;
+            }
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (Input.mouseScrollDelta.y > 0)
         {
             if (currentWeapon == weaponList.Count - 1)
@@ -51,9 +60,9 @@ public class HandleShooting : MonoBehaviour
 
     public bool Handle_Shooting()
     {
-        if (Input.GetButtonDown("Fire1"))
+
+        if (weaponList[currentWeapon].GetComponent<BaseWeapon>().Shoot())
         {
-            weaponList[currentWeapon].GetComponent<BaseWeapon>().Shoot();
             weaponList[currentWeapon].GetComponent<CameraShake>().Shake();
             return true;
         }

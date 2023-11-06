@@ -8,7 +8,7 @@ public class Pistol : BaseWeapon
     CameraShake cameraShake;
     private void Start()
     {
-        fireRate = 0.5f;
+        fireRate = 0.25f;
         cooldown = 0.5f;
 
     }
@@ -20,20 +20,25 @@ public class Pistol : BaseWeapon
     }
 
 
-    public override void Shoot()
+    public override bool Shoot()
     {
-        if(fireRate < cooldown)
+        if (Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("Fired");
-            cooldown = 0;
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+            if (fireRate < cooldown)
             {
-                Crate c = hit.transform.GetComponent<Crate>();
-                c.OnDamaged(10);
+                Debug.Log("Fired");
+                cooldown = 0;
+                RaycastHit hit;
+
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+                {
+                    Crate c = hit.transform.GetComponent<Crate>();
+                    c.OnDamaged(10);
+                }
+
+                return true;
             }
         }
-
+        return false;
     }
 }

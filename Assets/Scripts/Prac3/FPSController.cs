@@ -19,10 +19,13 @@ public class FPSController : MonoBehaviour
 
     private void Update()
     {
+        Camera.main.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y, gameObject.transform.position.z);
+        Camera.main.transform.rotation = gameObject.transform.rotation;
 
         HandleMovement.Handle_Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        handleShooting.Handle_Shooting();
         handleCamera.HandleCameraRotation(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        handleShooting.Handle_Shooting();
+
     }
 
 

@@ -4,37 +4,42 @@ using UnityEngine;
 
 public class AK : BaseWeapon
 {
+    bool btnDown = false;
     private void Start()
     {
-        fireRate = 5;
+        fireRate = 0.1f;
         cooldown = 0;
 
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         cooldown += Time.deltaTime;
-        if (Input.GetButtonDown("Fire1"))
+
+        if (btnDown)
         {
-            Shoot();
-        }
-    }
-
-
-    public override void Shoot()
-    {
-        if (fireRate < cooldown)
-        {
-            Debug.Log("Fired");
-            cooldown = 0;
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+            if (fireRate < cooldown)
             {
-                Crate c = hit.transform.GetComponent<Crate>();
-                c.OnDamaged(10);
+                Debug.Log("Fired");
+                cooldown = 0;
+
+
             }
         }
 
+    }
+
+    public override bool Shoot()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            btnDown = true;
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            btnDown = false;
+        }
+
+        return btnDown;
     }
 }
