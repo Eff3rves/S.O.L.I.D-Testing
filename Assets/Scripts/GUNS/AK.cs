@@ -39,7 +39,7 @@ public class AK : BaseWeapon
                 //bull.GetComponent<DefultBullet>().dire = bulletDire;
 
                 bull.transform.position = dire.position;
-                Debug.Log(bull.transform.position);
+                //Debug.Log(bull.transform.position);
                 bull.GetComponent<DefultBullet>().dire = bulletDire;
 
             }

@@ -15,6 +15,7 @@ public class DefultBullet : Projectile
         countdown = 5;
     }
 
+
     private void Update()
     {
         countdown -= Time.deltaTime;
@@ -27,6 +28,7 @@ public class DefultBullet : Projectile
 
 
         gameObject.transform.position += dire*0.1f;
+        gameObject.transform.rotation = Quaternion.LookRotation(dire, Vector3.up);
     }
 
 
@@ -45,6 +47,7 @@ public class DefultBullet : Projectile
     private void Reset()
     {
         gameObject.transform.position = new Vector3(0, 0, 0);
+        countdown = 5;
     }
 
 

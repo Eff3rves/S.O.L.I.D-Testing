@@ -23,38 +23,41 @@ public class HandleShooting : MonoBehaviour
     void Update()
     {
 
+        if (!Handle_Shooting())
+        {
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                if (currentWeapon == weaponList.Count - 1)
+                {
+                    weaponList[currentWeapon].SetActive(false);
+                    currentWeapon = 0;
+                    weaponList[currentWeapon].SetActive(true);
+                }
+                else
+                {
+                    weaponList[currentWeapon].SetActive(false);
+                    currentWeapon++;
+                    weaponList[currentWeapon].SetActive(true);
 
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            if (currentWeapon == weaponList.Count - 1)
-            {
-                weaponList[currentWeapon].SetActive(false);
-                currentWeapon = 0;
-                weaponList[currentWeapon].SetActive(true);
+                }
             }
-            else
+            else if (Input.mouseScrollDelta.y < 0)
             {
-                weaponList[currentWeapon].SetActive(false);
-                currentWeapon++;
-                weaponList[currentWeapon].SetActive(true);
-                
-            }
-        }
-        else if (Input.mouseScrollDelta.y < 0)
-        {
-            if (currentWeapon == 0)
-            {
-                weaponList[currentWeapon].SetActive(false);
-                currentWeapon = weaponList.Count - 1;
-                weaponList[currentWeapon].SetActive(true);
-            }
-            else
-            {
-                weaponList[currentWeapon].SetActive(false);
-                currentWeapon--;
-                weaponList[currentWeapon].SetActive(true);
+                if (currentWeapon == 0)
+                {
+                    weaponList[currentWeapon].SetActive(false);
+                    currentWeapon = weaponList.Count - 1;
+                    weaponList[currentWeapon].SetActive(true);
+                }
+                else
+                {
+                    weaponList[currentWeapon].SetActive(false);
+                    currentWeapon--;
+                    weaponList[currentWeapon].SetActive(true);
+                }
             }
         }
+
 
     }
 
@@ -64,6 +67,7 @@ public class HandleShooting : MonoBehaviour
         if (weaponList[currentWeapon].GetComponent<BaseWeapon>().Shoot())
         {
             weaponList[currentWeapon].GetComponent<CameraShake>().Shake();
+            weaponList[currentWeapon].GetComponent<Recoils>().recoil();
             return true;
         }
         return false;
