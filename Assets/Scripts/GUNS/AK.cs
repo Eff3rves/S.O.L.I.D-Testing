@@ -9,7 +9,10 @@ public class AK : BaseWeapon
     private ObjectPool OP;
 
     [SerializeField]
-    private Transform dire;
+    private Transform Forward;
+
+    [SerializeField]
+    private Transform BulletSpawn;
 
     [SerializeField]
     private GameObject bullet;
@@ -33,12 +36,12 @@ public class AK : BaseWeapon
                 //Debug.Log("Fired");
                 cooldown = 0;
 
-                Vector3 bulletDire = Vector3.Normalize(dire.position - gameObject.transform.position);
+                Vector3 bulletDire = Vector3.Normalize(Forward.position - gameObject.transform.position);
                 GameObject bull = OP.GetPooledObject().gameObject;
                 //bull.transform.position = dire.position;
                 //bull.GetComponent<DefultBullet>().dire = bulletDire;
 
-                bull.transform.position = dire.position;
+                bull.transform.position = BulletSpawn.position;
                 //Debug.Log(bull.transform.position);
                 bull.GetComponent<DefultBullet>().dire = bulletDire;
 
