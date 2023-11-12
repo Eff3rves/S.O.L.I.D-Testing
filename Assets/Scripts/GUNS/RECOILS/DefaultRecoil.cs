@@ -56,4 +56,5 @@ public class DefaultRecoil : Recoils
         //// Ensure the final position is exactly the target position
         transform.localPosition = targetPos;
     }
+
 }

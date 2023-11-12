@@ -5,8 +5,7 @@ using DesignPatterns.ObjectPool;
 
 public class AK : BaseWeapon
 {
-    [SerializeField]
-    private ObjectPool OP;
+    public ObjectPool OP;
 
     [SerializeField]
     private Transform Forward;
@@ -17,10 +16,13 @@ public class AK : BaseWeapon
     [SerializeField]
     private GameObject bullet;
 
+
     bool btnDown = false;
+
+    bool fired = false;
     private void Start()
     {
-        fireRate = 0.1f;
+        fireRate = 0.15f;
         cooldown = 0;
 
     }
@@ -28,9 +30,10 @@ public class AK : BaseWeapon
     private void Update()
     {
         cooldown += Time.deltaTime;
-
-        if (btnDown)
+        fired = false;
+        if (btnDown && ammoManager.cankeepShooting())
         {
+
             if (fireRate < cooldown)
             {
                 //Debug.Log("Fired");
@@ -38,16 +41,20 @@ public class AK : BaseWeapon
 
                 Vector3 bulletDire = Vector3.Normalize(Forward.position - gameObject.transform.position);
                 GameObject bull = OP.GetPooledObject().gameObject;
-                //bull.transform.position = dire.position;
-                //bull.GetComponent<DefultBullet>().dire = bulletDire;
+
 
                 bull.transform.position = BulletSpawn.position;
                 //Debug.Log(bull.transform.position);
                 bull.GetComponent<DefultBullet>().dire = bulletDire;
 
+                fired = true;
             }
-        }
 
+        }
+        else
+        {
+            fired = false;
+        }
     }
 
     public override bool Shoot()
@@ -61,6 +68,7 @@ public class AK : BaseWeapon
             btnDown = false;
         }
 
-        return btnDown;
+        return fired;
     }
+
 }

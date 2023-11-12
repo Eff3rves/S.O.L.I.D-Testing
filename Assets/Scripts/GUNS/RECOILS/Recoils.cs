@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Recoils : MonoBehaviour
+public abstract class Recoils : MonoBehaviour,IObserver
 {
     [SerializeField]
     protected float recoilStrength;
@@ -10,4 +10,7 @@ public abstract class Recoils : MonoBehaviour
     protected float recoilDuration;
     public abstract void recoil();
 
+    public void UpdateObserver() {
+        recoil();
+    }
 }

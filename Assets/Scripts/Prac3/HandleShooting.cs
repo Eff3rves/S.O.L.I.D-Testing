@@ -1,75 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HandleShooting : MonoBehaviour
 {
-    public List<GameObject> weaponList; // since this is parent class, all child classes can be put into it
-    private int currentWeapon;
-    // Start is called before the first frame update
-    void Start()
+    //all weapon will have a script called weapon handler that will do all the actions,
+    //the handle shooting will manage where they can shoot or switch weapon
+    //to be fair the other serialised fields can also be specific observers but at this point it is only 1 script each and not a very tight coupling
+    [SerializeField]
+    private LoadOutManager loadOut;
+
+    [SerializeField]
+    private TMP_Text ammoText;
+
+    private GameObject currWeapon;
+
+
+    private void Update()
     {
-        for(currentWeapon = 0; currentWeapon < weaponList.Count-1; currentWeapon++)
+        
+        if(currWeapon != loadOut.getCurrWeapon())
         {
-            if (weaponList[currentWeapon].gameObject.activeSelf)
-            {
-                break;
-            }
+            currWeapon = loadOut.getCurrWeapon();
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (!Handle_Shooting())
+        if(ammoText != null)
         {
-            if (Input.mouseScrollDelta.y > 0)
-            {
-                if (currentWeapon == weaponList.Count - 1)
-                {
-                    weaponList[currentWeapon].SetActive(false);
-                    currentWeapon = 0;
-                    weaponList[currentWeapon].SetActive(true);
-                }
-                else
-                {
-                    weaponList[currentWeapon].SetActive(false);
-                    currentWeapon++;
-                    weaponList[currentWeapon].SetActive(true);
-
-                }
-            }
-            else if (Input.mouseScrollDelta.y < 0)
-            {
-                if (currentWeapon == 0)
-                {
-                    weaponList[currentWeapon].SetActive(false);
-                    currentWeapon = weaponList.Count - 1;
-                    weaponList[currentWeapon].SetActive(true);
-                }
-                else
-                {
-                    weaponList[currentWeapon].SetActive(false);
-                    currentWeapon--;
-                    weaponList[currentWeapon].SetActive(true);
-                }
-            }
+            updateAmmoText();
         }
-
 
     }
 
     public bool Handle_Shooting()
     {
-
-        if (weaponList[currentWeapon].GetComponent<BaseWeapon>().Shoot())
+        //check if there is a weapon in hand
+        if(currWeapon != null)
         {
-            weaponList[currentWeapon].GetComponent<CameraShake>().Shake();
-            weaponList[currentWeapon].GetComponent<Recoils>().recoil();
-            return true;
+            AmmoManager ammoThing = currWeapon.GetComponent<AmmoManager>();
+
+
+            //once the weapon is shot, start to notify every observer
+            if (currWeapon.GetComponent<BaseWeapon>().Shoot())
+            {
+                currWeapon.GetComponent<WeaponHandler>().NotifyObservers();
+                //sets loadout to cannot switch
+                loadOut.canSwitch = false;
+                ammoThing.Shot();
+                return true;
+            }
+
+            //sets loadout to can switch
+            loadOut.canSwitch = true;
+
+               
         }
+
         return false;
+    }
+
+    private void updateAmmoText()
+    {
+        if(currWeapon != null)
+        {
+            AmmoManager ammoThing = currWeapon.GetComponent<AmmoManager>();
+            ammoText.text = (ammoThing.ammoInClip + " / " + ammoThing.totalAmmo);
+        }
+        else
+        {
+            ammoText.text = " ";
+        }
+
     }
 }

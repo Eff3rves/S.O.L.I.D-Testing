@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DesignPatterns.Factory;
+
 
 public class Pistol : BaseWeapon
 {
     [SerializeField]
     CameraShake cameraShake;
+
     private void Start()
     {
         fireRate = 0.25f;
@@ -22,11 +25,11 @@ public class Pistol : BaseWeapon
 
     public override bool Shoot()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && ammoManager.cankeepShooting())
         {
             if (fireRate < cooldown)
             {
-                Debug.Log("Fired");
+                //Debug.Log("Fired");
                 cooldown = 0;
                 RaycastHit hit;
 
