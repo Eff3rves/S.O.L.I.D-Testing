@@ -23,7 +23,8 @@ public class InputManager : MonoBehaviour
         //Debug.Log(cameraForward);
         cameraForward = new Vector3(cameraForward.x, 0, cameraForward.z);
         cameraRight = new Vector3(cameraRight.x, 0, cameraRight.z);
-        transform.position += cameraForward.normalized * forwardInput * movementSpeed * 0.01f;
-        transform.position += cameraRight.normalized * rightdInput * movementSpeed * 0.01f;
+
+        transform.localPosition += cameraForward.normalized * forwardInput * movementSpeed * 0.01f;
+        transform.localPosition += cameraRight.normalized * rightdInput * movementSpeed * 0.01f;
     }
 }

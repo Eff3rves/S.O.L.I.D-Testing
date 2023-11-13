@@ -10,12 +10,6 @@ public class HandleCamera : MonoBehaviour
 
     private float verticalRotation = 0f;
     private float horizontalRotation = 0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
 
     public void HandleCameraRotation(float axisX, float axisY)
     {
@@ -26,6 +20,9 @@ public class HandleCamera : MonoBehaviour
         verticalRotation = Mathf.Clamp(verticalRotation, -90, 90);
 
         transform.Rotate(0, mouseX, 0);
-        Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
+        Camera.main.transform.rotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
+
+        //rotate player
+        transform.rotation = Quaternion.Euler(0, horizontalRotation, 0);
     }
 }

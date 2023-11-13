@@ -86,7 +86,7 @@ public class LoadOutManager : MonoBehaviour
             return null;
         }
 
-        Debug.Log(currentWeapon);
+        //Debug.Log(currentWeapon);
         GameObject weapon = weaponList[currentWeapon];
 
         return weapon;
