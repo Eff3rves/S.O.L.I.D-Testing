@@ -6,8 +6,6 @@ using DesignPatterns.Factory;
 
 public class Pistol : BaseWeapon
 {
-    [SerializeField]
-    CameraShake cameraShake;
 
     private void Start()
     {

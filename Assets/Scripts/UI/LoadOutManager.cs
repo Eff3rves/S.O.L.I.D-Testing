@@ -85,11 +85,15 @@ public class LoadOutManager : MonoBehaviour
         {
             return null;
         }
+        if(currentWeapon < weaponList.Count)
+        {
+            //Debug.Log(currentWeapon);
+            GameObject weapon = weaponList[currentWeapon];
+            return weapon;
+        }
 
-        //Debug.Log(currentWeapon);
-        GameObject weapon = weaponList[currentWeapon];
+        return null;
 
-        return weapon;
     }
 
     public void addWeapon(GameObject newWeapon)
