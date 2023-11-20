@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoils: {fileID: 1447362306}
   flash: {fileID: 1447362312}
-  shake: {fileID: 1447362303}
+  shake: {fileID: 1649095210167394981}
 --- !u!114 &1447362314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +275,20 @@ MonoBehaviour:
   ammoManager: {fileID: 1447362314}
   weaponDropped: {fileID: 4388359440842508235, guid: 989b056078351c54f844f16fef47c70c, type: 3}
   dropLoc: {fileID: 7765226686036070184}
+--- !u!114 &1649095210167394981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373248699017486636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ace6921121b0c4285ffdd0fd037276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.1
+  shakeIntensity: 1
 --- !u!4 &6373248699017985292 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}
