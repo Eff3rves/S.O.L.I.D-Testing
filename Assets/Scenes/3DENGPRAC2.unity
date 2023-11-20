@@ -1302,6 +1302,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1545318770}
     m_Modifications:
+    - target: {fileID: 1269046042, guid: b91a83fcad3bc9a44b8b8800b5f0c5e7, type: 3}
+      propertyPath: rotateRange
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269046042, guid: b91a83fcad3bc9a44b8b8800b5f0c5e7, type: 3}
+      propertyPath: recoilStrength
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1269046045, guid: b91a83fcad3bc9a44b8b8800b5f0c5e7, type: 3}
       propertyPath: muzzleFlash
       value: 

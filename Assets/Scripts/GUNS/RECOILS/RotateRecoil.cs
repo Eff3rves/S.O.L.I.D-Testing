@@ -30,7 +30,7 @@ public class RotateRecoil : Recoils
             elapsedTime += Time.deltaTime;
 
             float t = elapsedTime / recoilDuration;
-            float recoilAmount = Mathf.Sin(t * Mathf.PI) * recoilStrength * rotateRange;
+            float recoilAmount = Mathf.Sin(t * Mathf.PI) * rotateRange;
 
             transform.localRotation = Quaternion.Euler(StartRotate.eulerAngles.x, StartRotate.eulerAngles.y, -recoilAmount);
 
