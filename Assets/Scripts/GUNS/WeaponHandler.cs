@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour,ISubject
 {
-    [SerializeField]
-    private Recoils recoils;
-
-    [SerializeField]
-    private MuzzleFlash flash;
-
-    [SerializeField]
-    private CameraShake shake;
 
 
 
@@ -20,9 +12,10 @@ public class WeaponHandler : MonoBehaviour,ISubject
 
     private void Start()
     {
-        RegisterObserver(recoils);
-        RegisterObserver(flash);
-        RegisterObserver(shake);
+        foreach(var observer in GetComponents<IObserver>())
+        {
+            RegisterObserver(observer);
+        }
     }
 
     public void NotifyObservers()

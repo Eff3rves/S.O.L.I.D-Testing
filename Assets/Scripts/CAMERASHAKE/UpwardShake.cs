@@ -1,35 +1,48 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UpwardShake : CameraShake
 {
-
-    private Quaternion StartRotateY;
     public float shakeIntensity;
-    public float UpwardShakeIntensity;
-    Quaternion startPosition;
+    public float upwardShakeIntensity;
+    public float upwardRotationSpeed = 1.0f;
+
+    public delegate void CameraRotationEvent(float extraRotation);
+    public static event CameraRotationEvent OnCameraRotationChange;
+
     public override void Shake()
     {
-        
         StartCoroutine(PerformUpwardShake());
-
     }
 
     IEnumerator PerformUpwardShake()
     {
-        startPosition = Camera.main.transform.localRotation;
+        Quaternion startPosition = Camera.main.transform.localRotation;
+
         float elapsedTime = 0.0f;
 
-        elapsedTime += Time.deltaTime;
-        startPosition.eulerAngles = new Vector3(startPosition.eulerAngles.x - UpwardShakeIntensity, startPosition.eulerAngles.y, startPosition.eulerAngles.z);
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
 
-        Camera.main.transform.localRotation = Quaternion.Euler(
-             startPosition.eulerAngles.x + Random.Range(-shakeIntensity, shakeIntensity),
-            startPosition.eulerAngles.y + Random.Range(-shakeIntensity, shakeIntensity),
-            startPosition.eulerAngles.z + Random.Range(-shakeIntensity, shakeIntensity)
+            // Calculate the upward rotation
+            float upwardRotation = Mathf.Sin(Time.time * upwardRotationSpeed) * upwardShakeIntensity;
+
+            Quaternion newRotation = Quaternion.Euler(
+                startPosition.eulerAngles.x + upwardRotation, // Rotate upwards
+                startPosition.eulerAngles.y + Random.Range(-shakeIntensity, shakeIntensity),
+                startPosition.eulerAngles.z + Random.Range(-shakeIntensity, shakeIntensity)
             );
-        yield return null;
 
+            Camera.main.transform.localRotation = newRotation;
+
+            // Trigger an event for additional rotation
+            float extraRotation = Mathf.Sin(Time.time * 2.0f) * 5.0f; // Example additional rotation
+            OnCameraRotationChange?.Invoke(extraRotation);
+
+            yield return null;
+        }
+
+        Camera.main.transform.localRotation = startPosition;
     }
 }
