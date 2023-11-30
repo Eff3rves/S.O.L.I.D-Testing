@@ -5,32 +5,31 @@ using DesignPatterns.ObjectPool;
 
 public class AKObjPoolManager : ObjPoolManager
 {
- 
-    void Update()
+
+    // Singleton instance of the AKObjPoolManager
+    private static AKObjPoolManager instance;
+    public static AKObjPoolManager Instance => instance;
+
+
+    private void Awake()
     {
-
-        if (Listcount > weaponList.Count)
+        // Ensure there's only one instance of AKObjPoolManager in the scene
+        if (instance != null && instance != this)
         {
-            Listcount = weaponList.Count;
-            return;
+            Destroy(gameObject); // Destroy duplicate instances
         }
-
-        if (Listcount < weaponList.Count)
+        else
         {
-            foreach (var weapon in weaponList)
-            {
-                if (weapon.GetComponent<AK>() != null)
-                {
-                    if (weapon.GetComponent<AK>().OP == null)
-                    {
-                        weapon.GetComponent<AK>().OP = OP;
-                    }
-                }
-            }
-            Listcount = weaponList.Count;
+            instance = this;
+            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
         }
-       
+    }
 
 
+    public PooledObject GetPooledObject()
+    {
+        if (OP != null)
+            return OP.GetPooledObject();
+        return null;
     }
 }

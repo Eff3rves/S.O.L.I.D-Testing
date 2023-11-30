@@ -10,9 +10,14 @@ public class MuzzleFlash : MonoBehaviour,IObserver
     [SerializeField]
     private Transform BulletSpawn; //find the gun tip for muzzle flash
 
-    public ConcreteFactoryMuzzleFlash muzzleFlash; //make the muzzle flash
+    private MuzzleFlashFactoryManager muzzleFlash; //make the muzzle flash
 
     private Vector3 bulletDire; //determines where the muzzle is going
+
+    private void Start()
+    {
+        muzzleFlash = MuzzleFlashFactoryManager.Instance;
+    }
 
     private void Update()
     {
@@ -22,8 +27,8 @@ public class MuzzleFlash : MonoBehaviour,IObserver
 
     public void Flash()
     {
-        muzzleFlash.dire = bulletDire;
-        muzzleFlash.GetProduct(BulletSpawn.position);
+        muzzleFlash.getFactory().dire = bulletDire;
+        muzzleFlash.getFactory().GetProduct(BulletSpawn.position);
     }
 
     public void UpdateObserver()

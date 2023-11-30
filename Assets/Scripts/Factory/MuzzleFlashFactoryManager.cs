@@ -7,31 +7,28 @@ public class MuzzleFlashFactoryManager : FactoryManager
 {
     [SerializeField]
     private ConcreteFactoryMuzzleFlash muzzleFlash;
-    void Update()
+
+
+    // Singleton instance of the AKObjPoolManager
+    private static MuzzleFlashFactoryManager instance;
+    public static MuzzleFlashFactoryManager Instance => instance;
+    private void Awake()
     {
-        
-        if(Listcount > weaponList.Count)
+        // Ensure there's only one instance of AKObjPoolManager in the scene
+        if (instance != null && instance != this)
         {
-            Listcount = weaponList.Count;
-            return;
+            Destroy(gameObject); // Destroy duplicate instances
         }
-
-        if (Listcount < weaponList.Count)
+        else
         {
-            foreach (var weapon in weaponList)
-            {
-                if (weapon.GetComponent<MuzzleFlash>() != null)
-                {
-                    if (weapon.GetComponent<MuzzleFlash>().muzzleFlash == null)
-                    {
-                        weapon.GetComponent<MuzzleFlash>().muzzleFlash = muzzleFlash;
-                    }
-                }
-            }
-            Listcount = weaponList.Count;
+            instance = this;
+            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
         }
+    }
 
 
-
+    public ConcreteFactoryMuzzleFlash getFactory()
+    {
+        return muzzleFlash;
     }
 }

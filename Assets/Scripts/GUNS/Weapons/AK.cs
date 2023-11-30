@@ -5,7 +5,7 @@ using DesignPatterns.ObjectPool;
 
 public class AK : BaseWeapon
 {
-    public ObjectPool OP;
+    private AKObjPoolManager aKObjPoolManager;
 
     [SerializeField]
     private Transform Forward;
@@ -17,6 +17,7 @@ public class AK : BaseWeapon
     private GameObject bullet;
 
 
+
     bool btnDown = false;
 
     bool fired = false;
@@ -24,7 +25,7 @@ public class AK : BaseWeapon
     {
         fireRate = 0.15f;
         cooldown = 0;
-
+        aKObjPoolManager = AKObjPoolManager.Instance;
     }
 
     private void Update()
@@ -40,7 +41,7 @@ public class AK : BaseWeapon
                 cooldown = 0;
 
                 Vector3 bulletDire = Vector3.Normalize(Forward.position - gameObject.transform.position);
-                GameObject bull = OP.GetPooledObject().gameObject;
+                GameObject bull = aKObjPoolManager.GetPooledObject().gameObject;
 
 
                 bull.transform.position = BulletSpawn.position;
