@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LoadOutManager : MonoBehaviour
 {
-    public List<GameObject> weaponList; 
+    public List<GameObject> weaponList;
+
     private int currentWeapon;
 
     // Singleton instance of the AKObjPoolManager
@@ -32,28 +33,38 @@ public class LoadOutManager : MonoBehaviour
             instance = this;
             //DontDestroyOnLoad(gameObject); // Preserve across scene changes
         }
+
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform child in gameObject.transform)
+        {
+            if(child.GetComponent<BaseWeapon>() != null)
+            addWeapon(child.gameObject);
+        }
 
         Listcount = weaponList.Count;
 
+        //remove extra things in the list
         //checks the weaponlist 
-        for (currentWeapon = 0; currentWeapon < weaponList.Count - 1; currentWeapon++)
+        for (currentWeapon = 0; currentWeapon < weaponList.Count; currentWeapon++)
         {
-            if(weaponList[currentWeapon] == null)
+            if (weaponList[currentWeapon] == null)
             {
                 weaponList.Remove(weaponList[currentWeapon]);
             }
-
-            if (weaponList[currentWeapon].gameObject.activeSelf)
-            {
-                break;
-            }
         }
 
+        //loops through to find deactivate the 
+        for (currentWeapon = 0; currentWeapon < weaponList.Count ; currentWeapon++)
+        {
+            weaponList[currentWeapon].SetActive(false);
+        }
+
+        weaponList[0].SetActive(true);
     }
     // Update is called once per frame
     void Update()

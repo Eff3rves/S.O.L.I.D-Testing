@@ -12,7 +12,7 @@ public class Sniper : BaseWeapon,baseAim
     {
         fireRate = 0.25f;
         cooldown = 0.5f;
-
+        loadOut = LoadOutManager.Instance;
     }
 
 
