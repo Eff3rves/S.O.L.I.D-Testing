@@ -26,7 +26,10 @@ public class AK : BaseWeapon
         fireRate = 0.15f;
         cooldown = 0;
         aKObjPoolManager = AKObjPoolManager.Instance;
+        loadOut = LoadOutManager.Instance;
+
     }
+
 
     private void Update()
     {

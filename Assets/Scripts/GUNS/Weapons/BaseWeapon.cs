@@ -8,6 +8,9 @@ public abstract class BaseWeapon : MonoBehaviour
     protected float cooldown;
     [SerializeField]
     protected AmmoManager ammoManager;
+
+    protected LoadOutManager loadOut;
     public abstract bool Shoot();
+
 
 }

@@ -8,7 +8,7 @@ public class HandleShooting : MonoBehaviour
     //all weapon will have a script called weapon handler that will do all the actions,
     //the handle shooting will manage where they can shoot or switch weapon
     //to be fair the other serialised fields can also be specific observers but at this point it is only 1 script each and not a very tight coupling
-    [SerializeField]
+
     private LoadOutManager loadOut;
 
     [SerializeField]
@@ -16,6 +16,10 @@ public class HandleShooting : MonoBehaviour
 
     private GameObject currWeapon;
 
+    private void Start()
+    {
+        loadOut = LoadOutManager.Instance;
+    }
 
     private void Update()
     {

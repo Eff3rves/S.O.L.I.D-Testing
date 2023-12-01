@@ -7,6 +7,10 @@ public class LoadOutManager : MonoBehaviour
     public List<GameObject> weaponList; 
     private int currentWeapon;
 
+    // Singleton instance of the AKObjPoolManager
+    private static LoadOutManager instance;
+    public static LoadOutManager Instance => instance;
+
     private bool m_canSwitch;
     public bool canSwitch
     {
@@ -16,9 +20,24 @@ public class LoadOutManager : MonoBehaviour
 
     int Listcount;
 
+    private void Awake()
+    {
+
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            instance = this;
+            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         Listcount = weaponList.Count;
 
         //checks the weaponlist 

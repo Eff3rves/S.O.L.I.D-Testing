@@ -7,6 +7,21 @@ public class Sniper : BaseWeapon,baseAim
     [SerializeField]
     private GameObject crosshair;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        fireRate = 0.25f;
+        cooldown = 0.5f;
+
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        cooldown += Time.deltaTime;
+    }
+
     public void Aim()
     {
         throw new System.NotImplementedException();
@@ -36,19 +51,5 @@ public class Sniper : BaseWeapon,baseAim
             }
         }
         return false;
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        fireRate = 0.25f;
-        cooldown = 0.5f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        cooldown += Time.deltaTime;
     }
 }

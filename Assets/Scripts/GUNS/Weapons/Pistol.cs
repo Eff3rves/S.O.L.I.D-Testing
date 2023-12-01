@@ -12,6 +12,7 @@ public class Pistol : BaseWeapon
         fireRate = 0.25f;
         cooldown = 0.5f;
 
+
     }
     // Update is called once per frame
     void Update()
