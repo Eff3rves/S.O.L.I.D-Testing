@@ -42,7 +42,7 @@ public class Sniper : BaseWeapon,baseAim
                     if (hit.transform.GetComponent<Crate>() != null)
                     {
                         Crate c = hit.transform.GetComponent<Crate>();
-                        c.OnDamaged(10);
+                        c.OnDamaged(20);
                     }
 
                 }

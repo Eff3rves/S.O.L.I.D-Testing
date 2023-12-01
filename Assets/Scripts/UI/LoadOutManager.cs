@@ -64,7 +64,9 @@ public class LoadOutManager : MonoBehaviour
             weaponList[currentWeapon].SetActive(false);
         }
 
-        weaponList[0].SetActive(true);
+        currentWeapon = 0;
+
+        weaponList[currentWeapon].SetActive(true);
     }
     // Update is called once per frame
     void Update()

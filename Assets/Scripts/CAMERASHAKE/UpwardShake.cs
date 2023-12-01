@@ -5,28 +5,31 @@ public class UpwardShake : CameraShake
 {
     public float shakeIntensity;
     public float upwardShakeIntensity;
-    public float upwardRotationSpeed = 1.0f;
+    public float upwardRotationSpeed = 5;
 
     public delegate void CameraRotationEvent(float extraRotation);
     public static event CameraRotationEvent OnCameraRotationChange;
 
     public override void Shake()
     {
+
+
         StartCoroutine(PerformUpwardShake());
     }
 
     IEnumerator PerformUpwardShake()
     {
-        Quaternion startPosition = Camera.main.transform.localRotation;
+ 
 
         float elapsedTime = 0.0f;
 
         while (elapsedTime < duration)
         {
+            Quaternion startPosition = Camera.main.transform.localRotation;
             elapsedTime += Time.deltaTime;
 
             // Calculate the upward rotation
-            float upwardRotation = Mathf.Sin(Time.time * upwardRotationSpeed) * upwardShakeIntensity;
+            float upwardRotation = upwardShakeIntensity;
 
             Quaternion newRotation = Quaternion.Euler(
                 startPosition.eulerAngles.x + upwardRotation, // Rotate upwards
@@ -34,15 +37,12 @@ public class UpwardShake : CameraShake
                 startPosition.eulerAngles.z + Random.Range(-shakeIntensity, shakeIntensity)
             );
 
-            Camera.main.transform.localRotation = newRotation;
+            Camera.main.transform.localEulerAngles = newRotation.eulerAngles;
 
-            // Trigger an event for additional rotation
-            float extraRotation = Mathf.Sin(Time.time * 2.0f) * 5.0f; // Example additional rotation
-            OnCameraRotationChange?.Invoke(extraRotation);
+
 
             yield return null;
         }
 
-        Camera.main.transform.localRotation = startPosition;
     }
 }

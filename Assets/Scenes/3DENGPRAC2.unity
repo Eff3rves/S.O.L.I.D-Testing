@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -289,6 +289,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df45e1416535fd40aa0c3b3b40e22c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &177762670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177762661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f1f2e2b600d774297b74a578112a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilStrength: 10
+  recoilDuration: 1
+  rotateRange: 20
 --- !u!224 &342249777 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1161339583451151893, guid: 9c715399ff934ab4da6fa2966ab5093f, type: 3}
@@ -307,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d78fce1f586605a47ab057832f697a8d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d78fce1f586605a47ab057832f697a8d, type: 3}
       propertyPath: m_RootOrder
@@ -327,7 +342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d78fce1f586605a47ab057832f697a8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.72
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d78fce1f586605a47ab057832f697a8d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -476,49 +491,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1545318770}
     m_Modifications:
-    - target: {fileID: 1447362297, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: OP
-      value: 
-      objectReference: {fileID: 1700794155}
-    - target: {fileID: 1447362306, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447362306, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: recoilDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447362312, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: muzzleFlash
-      value: 
-      objectReference: {fileID: 19677895}
-    - target: {fileID: 1447362313, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: recoils
-      value: 
-      objectReference: {fileID: 1498213328}
-    - target: {fileID: 1649095210167394981, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: duration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1649095210167394981, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: shakeIntensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1649095210167394981, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: UpwardShakeIntensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1649095210167394981, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: upwardShakeIntensity
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6373248699017486636, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
       propertyPath: m_Name
       value: AK-47
-      objectReference: {fileID: 0}
-    - target: {fileID: 6373248699017486636, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6373248699017985292, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
       propertyPath: m_RootOrder
@@ -564,8 +539,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.36
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1447362303, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
 --- !u!1 &1034896998
 GameObject:
@@ -1182,17 +1156,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1498213328 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1447362306, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
-  m_PrefabInstance: {fileID: 890457093}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d15c3e162967c56428445ea7ba1e8ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1498213333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6373248699017985292, guid: 506c813a3fce4b646ad68ed8eaff4bf9, type: 3}
@@ -1601,7 +1564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1850550284875983277, guid: b91a83fcad3bc9a44b8b8800b5f0c5e7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7453005361138673961, guid: b91a83fcad3bc9a44b8b8800b5f0c5e7, type: 3}
       propertyPath: weaponDropped

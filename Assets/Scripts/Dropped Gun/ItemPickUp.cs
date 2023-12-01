@@ -35,7 +35,7 @@ public class ItemPickUp : MonoBehaviour
             AmmoManager ammoManager = weapontaken.GetComponent<AmmoManager>();
             ammoManager.totalAmmo = m_totalAmmo;
             ammoManager.ammoInClip = m_ammoInClip;
-            player.GetComponent<LoadOutManager>().addWeapon(weapontaken);
+            LoadOutManager.Instance.addWeapon(weapontaken);
             Destroy(gameObject);
         }
 
