@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Sniper : BaseWeapon,baseAim
 {
-    [SerializeField]
-    private GameObject crosshair;
+
+    GameObject scopedCrosshair;
+
+    bool isScoped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -13,6 +15,7 @@ public class Sniper : BaseWeapon,baseAim
         fireRate = 0.25f;
         cooldown = 0.5f;
         loadOut = LoadOutManager.Instance;
+        scopedCrosshair = GameObject.Find("ScopedCrosshair");
     }
 
 
@@ -20,11 +23,21 @@ public class Sniper : BaseWeapon,baseAim
     void Update()
     {
         cooldown += Time.deltaTime;
+        Aim();
     }
 
     public void Aim()
     {
-        throw new System.NotImplementedException();
+        if (Input.GetButtonDown("Fire2"))
+        {
+            isScoped = true;
+
+        }
+        else if(Input.GetButtonUp("Fire2")) {
+            isScoped = false; 
+        }
+        gameObject.GetComponent<MeshRenderer>().enabled=!isScoped;
+        scopedCrosshair.SetActive(isScoped);
     }
 
     public override bool Shoot()
