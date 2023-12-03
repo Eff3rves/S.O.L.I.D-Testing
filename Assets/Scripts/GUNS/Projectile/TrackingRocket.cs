@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DesignPatterns.ObjectPool;
 
-public class Rockets : Projectile
+public class TrackingRocket : Projectile
 {
     private PooledObject po;
 
     public Vector3 dire;
+
+    public Transform Target = null;
 
     private ExplosionFactoryManager explosion;
 
@@ -16,6 +18,7 @@ public class Rockets : Projectile
 
     [SerializeField]
     ExplosionRadius explosionRadius;
+
 
     private BoxCollider BC;
 
@@ -41,6 +44,12 @@ public class Rockets : Projectile
         }
 
 
+
+        if(Target != null)
+        {
+            dire = Vector3.Normalize(Target.position - transform.position);
+        }
+
         gameObject.transform.position += dire * 0.1f;
         gameObject.transform.rotation = Quaternion.LookRotation(dire, Vector3.up);
     }
@@ -63,6 +72,15 @@ public class Rockets : Projectile
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent <Crate>() != null)
+        {
+            
+            Target = other.gameObject.transform;
+        }
+    }
+
     private void Reset()
     {
         gameObject.transform.position = new Vector3(0, 0, 0);
@@ -77,6 +95,4 @@ public class Rockets : Projectile
         Reset();
         po.Release();
     }
-
 }
-
