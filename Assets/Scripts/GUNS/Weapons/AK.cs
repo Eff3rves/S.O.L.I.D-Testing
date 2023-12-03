@@ -13,11 +13,6 @@ public class AK : BaseWeapon
     [SerializeField]
     private Transform BulletSpawn;
 
-    [SerializeField]
-    private GameObject bullet;
-
-
-
     bool btnDown = false;
 
     bool fired = false;

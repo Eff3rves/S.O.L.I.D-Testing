@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}
       propertyPath: m_RootOrder
@@ -187,6 +187,21 @@ MonoBehaviour:
   Forward: {fileID: 387331778}
   BulletSpawn: {fileID: 1296567898}
   bullet: {fileID: 6244344664621308573, guid: 4d7f7e9e482530148bdae5747a221d2d, type: 3}
+--- !u!114 &1447362303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373248699017486636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7611a8b426a472b46b20ab9d5cf98c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.1
+  mouseSensitivity: 2
+  shakeIntensity: 1
 --- !u!114 &1447362312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +241,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmoCount: {fileID: 11400000, guid: 9e904e7d1da8d2f4582d780756a9772b, type: 2}
+  time2Reload: 1.5
+--- !u!114 &1498213343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373248699017486636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b6b40cc76a64449a7ccfd8454ce4f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilStrength: 0.1
+  recoilDuration: 0.1
 --- !u!114 &2888252804476087949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,35 +271,6 @@ MonoBehaviour:
   ammoManager: {fileID: 1447362314}
   weaponDropped: {fileID: 4388359440842508235, guid: 989b056078351c54f844f16fef47c70c, type: 3}
   dropLoc: {fileID: 7765226686036070184}
---- !u!114 &1447362303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373248699017486636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7611a8b426a472b46b20ab9d5cf98c6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.1
-  mouseSensitivity: 2
-  shakeIntensity: 1
---- !u!114 &1498213343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373248699017486636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08b6b40cc76a64449a7ccfd8454ce4f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recoilStrength: 0.1
-  recoilDuration: 0.1
 --- !u!4 &6373248699017985292 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}

@@ -1,0 +1,81 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DesignPatterns.ObjectPool;
+
+public class Rockets : Projectile
+{
+    private PooledObject po;
+
+    public Vector3 dire;
+
+    private ExplosionFactoryManager explosion;
+
+    [SerializeField]
+    private GameObject SC;
+
+    [SerializeField]
+    ExplosionRadius explosionRadius;
+
+    private BoxCollider BC;
+
+    private void Start()
+    {
+        po = GetComponent<PooledObject>();
+        countdown = 5;
+        explosion = ExplosionFactoryManager.Instance;
+        BC = GetComponent<BoxCollider>();
+        SC.SetActive(false);
+        explosionRadius.damage = damage;
+    }
+
+
+    private void Update()
+    {
+        countdown -= Time.deltaTime;
+
+        if (countdown <= 0)
+        {
+            Reset();
+            po.Release();
+        }
+
+
+        gameObject.transform.position += dire * 0.1f;
+        gameObject.transform.rotation = Quaternion.LookRotation(dire, Vector3.up);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+
+            SC.SetActive(true);
+            BC.enabled = false;
+
+            explosion.getFactory().GetProduct(transform.position);
+
+            StartCoroutine(resetProjectile());
+        }
+
+    }
+
+    private void Reset()
+    {
+        gameObject.transform.position = new Vector3(0, 0, 0);
+        countdown = 5;
+        SC.SetActive(false);
+        BC.enabled = true;
+    }
+
+    IEnumerator resetProjectile()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Reset();
+        po.Release();
+    }
+
+}
+

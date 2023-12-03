@@ -9,13 +9,28 @@ public class Sniper : BaseWeapon,baseAim
 
     bool isScoped = false;
 
+    float DefaultFOV;
+
+    public float zoom;
+
     // Start is called before the first frame update
     void Start()
     {
         fireRate = 0.25f;
         cooldown = 0.5f;
         loadOut = LoadOutManager.Instance;
-        scopedCrosshair = GameObject.Find("ScopedCrosshair");
+
+        scopedCrosshair = GameObject.Find("Canvas");
+        foreach(Transform i in scopedCrosshair.transform)
+        {
+            if(i.gameObject.name == "ScopedCrosshair")
+            {
+                scopedCrosshair = i.gameObject;
+                break;
+            }
+        }
+
+        DefaultFOV = Camera.main.fieldOfView;
     }
 
 
@@ -31,10 +46,11 @@ public class Sniper : BaseWeapon,baseAim
         if (Input.GetButtonDown("Fire2"))
         {
             isScoped = true;
-
+            Camera.main.fieldOfView = DefaultFOV - zoom;
         }
         else if(Input.GetButtonUp("Fire2")) {
-            isScoped = false; 
+            isScoped = false;
+            Camera.main.fieldOfView = DefaultFOV;
         }
         gameObject.GetComponent<MeshRenderer>().enabled=!isScoped;
         scopedCrosshair.SetActive(isScoped);

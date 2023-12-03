@@ -27,6 +27,8 @@ public class HandleShooting : MonoBehaviour
         if(currWeapon != loadOut.getCurrWeapon())
         {
             currWeapon = loadOut.getCurrWeapon();
+            if(currWeapon != null) currWeapon.SetActive(true);
+
         }
 
         if(ammoText != null)

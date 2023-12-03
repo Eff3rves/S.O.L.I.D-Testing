@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: b3248db90896a6f46a0cdb09d671a88f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b3248db90896a6f46a0cdb09d671a88f, type: 3}
       propertyPath: m_RootOrder
@@ -189,7 +189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoManager: {fileID: 1269046047}
-  cameraShake: {fileID: 1269046036}
 --- !u!114 &1269046036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,9 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f1f2e2b600d774297b74a578112a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilStrength: 0.5
+  recoilStrength: 1
   recoilDuration: 0.25
-  rotateRange: 70
+  rotateRange: 35
 --- !u!114 &1269046045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Forward: {fileID: 247324041}
   BulletSpawn: {fileID: 758513120}
-  muzzleFlash: {fileID: 0}
 --- !u!114 &1269046046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,9 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df45e1416535fd40aa0c3b3b40e22c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoils: {fileID: 1269046042}
-  flash: {fileID: 1269046045}
-  shake: {fileID: 1269046036}
 --- !u!114 &1269046047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmoCount: {fileID: 11400000, guid: 0251399b8b8bd3047be954fdddbeb2d0, type: 2}
+  time2Reload: 1
 --- !u!114 &7453005361138673961
 MonoBehaviour:
   m_ObjectHideFlags: 0
