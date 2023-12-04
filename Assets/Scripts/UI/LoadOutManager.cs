@@ -83,7 +83,7 @@ public class LoadOutManager : MonoBehaviour
                 return;
             }
 
-            if (Listcount > weaponList.Count)
+            if (Listcount > weaponList.Count && weaponList.Count > 0)
             {
                 currentWeapon = 0;
                 weaponList[currentWeapon].SetActive(true);

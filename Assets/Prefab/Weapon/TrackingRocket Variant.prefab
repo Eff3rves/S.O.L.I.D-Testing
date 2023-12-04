@@ -172,7 +172,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 995c252f2767fe840920e073859ff3a9, type: 3}
       propertyPath: m_Name
-      value: TrackingRocket
+      value: TrackingRocket Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 995c252f2767fe840920e073859ff3a9, type: 3}
       propertyPath: m_RootOrder
@@ -296,21 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df45e1416535fd40aa0c3b3b40e22c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &862472502023094997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2542156986676500573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d358cecd7f253746b1d9fcce9dae8a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoManager: {fileID: 152901584}
-  weaponDropped: {fileID: 2542156986676500573}
-  dropLoc: {fileID: 347366837}
 --- !u!114 &152901589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +311,21 @@ MonoBehaviour:
   ammoManager: {fileID: 152901584}
   Forward: {fileID: 613207462}
   BulletSpawn: {fileID: 1363576126}
+--- !u!114 &862472502023094997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542156986676500573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d358cecd7f253746b1d9fcce9dae8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoManager: {fileID: 152901584}
+  weaponDropped: {fileID: 4938556147184139907, guid: 1882f490687d88c4581de898f58c7a08, type: 3}
+  dropLoc: {fileID: 347366837}
 --- !u!4 &2542156986676855933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 995c252f2767fe840920e073859ff3a9, type: 3}

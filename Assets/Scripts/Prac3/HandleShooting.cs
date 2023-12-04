@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class HandleShooting : MonoBehaviour
-{
-    //all weapon will have a script called weapon handler that will do all the actions,
-    //the handle shooting will manage where they can shoot or switch weapon
-    //to be fair the other serialised fields can also be specific observers but at this point it is only 1 script each and not a very tight coupling
+public class HandleShooting : MonoBehaviour,IObserver
+{ 
 
     private LoadOutManager loadOut;
 
@@ -15,6 +12,25 @@ public class HandleShooting : MonoBehaviour
     private TMP_Text ammoText;
 
     private GameObject currWeapon;
+
+    // Singleton instance
+    private static HandleShooting instance;
+    public static HandleShooting Instance => instance;
+
+
+    private void Awake()
+    {
+        // Ensure there's only one instance 
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            instance = this;
+            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
+        }
+    }
 
     private void Start()
     {
@@ -31,7 +47,7 @@ public class HandleShooting : MonoBehaviour
 
         }
 
-        if(ammoText != null)
+        if(ammoText != null && currWeapon.activeSelf)
         {
             updateAmmoText();
         }
@@ -41,7 +57,7 @@ public class HandleShooting : MonoBehaviour
     public bool Handle_Shooting()
     {
         //check if there is a weapon in hand
-        if(currWeapon != null)
+        if(currWeapon != null && currWeapon.activeSelf)
         {
             AmmoManager ammoThing = currWeapon.GetComponent<AmmoManager>();
 
@@ -77,5 +93,10 @@ public class HandleShooting : MonoBehaviour
             ammoText.text = " ";
         }
 
+    }
+
+    public void UpdateObserver()
+    {
+        Handle_Shooting();
     }
 }

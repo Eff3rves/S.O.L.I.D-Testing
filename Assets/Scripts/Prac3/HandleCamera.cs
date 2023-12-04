@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandleCamera : MonoBehaviour
+public class HandleCamera : MonoBehaviour,IObserver
 {
 
     public float mouseSensitivity = 2.0f;
@@ -10,6 +10,25 @@ public class HandleCamera : MonoBehaviour
 
     private float verticalRotation = 0f;
     private float horizontalRotation = 0f;
+
+    // Singleton instance of the AKObjPoolManager
+    private static HandleCamera instance;
+    public static HandleCamera Instance => instance;
+
+
+    private void Awake()
+    {
+        // Ensure there's only one instance of AKObjPoolManager in the scene
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            instance = this;
+            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
+        }
+    }
 
     public void HandleCameraRotation(float axisX, float axisY)
     {
@@ -26,5 +45,8 @@ public class HandleCamera : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, horizontalRotation, 0);
     }
 
-
+    public void UpdateObserver()
+    {
+        HandleCameraRotation(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+    }
 }
