@@ -5,7 +5,7 @@ using DesignPatterns.ObjectPool;
 
 public class TrackingRocketLauncher : BaseWeapon
 {
-    private RocketObjPoolManager RocketObjPoolManager;
+    private TrackingRocketObjPoolManager RocketObjPoolManager;
 
 
     [SerializeField]
@@ -22,7 +22,7 @@ public class TrackingRocketLauncher : BaseWeapon
         fireRate = 0.25f;
         cooldown = 0.5f;
         loadOut = LoadOutManager.Instance;
-        RocketObjPoolManager = RocketObjPoolManager.Instance;
+        RocketObjPoolManager = TrackingRocketObjPoolManager.Instance;
     }
 
     // Update is called once per frame
