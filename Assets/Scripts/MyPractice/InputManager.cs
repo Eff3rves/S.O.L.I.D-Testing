@@ -3,127 +3,92 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class InputManager : MonoBehaviour, IObserver
+public class InputManager : MonoBehaviour
 {
-    private float forwardInput;
-    private float rightdInput;
+    public float movementSpeed;
+    public float jumpForce;
 
-    [SerializeField]
-    float movementSpeed;
+    private Rigidbody playerRigidbody;
+    private CapsuleCollider playerCollider;
+    private float standingHeight;
+    private float crouchingHeight;
 
-    [SerializeField]
-    float jumpForce;
+    private bool isCrouching;
+    private bool isJumping;
 
-    [SerializeField]
-    GroundCheck groundCheck;
-
-    // Singleton instance of the 
-    private static InputManager instance;
-    public static InputManager Instance => instance;
-
-    [SerializeField]
-    GameObject standing;
-
-    [SerializeField]
-    GameObject crouching;
-
-    bool isCrouch;
-
-    private float defaultMoveSpeed;
-
-    private bool isJump;
-
-    private void Awake()
+    void Start()
     {
-        // Ensure there's only one instance 
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject); // Destroy duplicate instances
-        }
-        else
-        {
-            instance = this;
-            //DontDestroyOnLoad(gameObject); // Preserve across scene changes
-        }
-        isCrouch = false;
-        defaultMoveSpeed = movementSpeed;
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
+
+        // Record initial heights
+        standingHeight = playerCollider.height;
+        crouchingHeight = standingHeight * 0.5f;
+
     }
 
-    public void Handle_Movement(float horizontalInput, float verticalInput)
+    void Update()
     {
+        HandleCrouch();
+        HandleJump();
+        Camera.main.transform.position = playerRigidbody.position;
+    }
 
+    void FixedUpdate()
+    {
+        MovePlayer();
+        if (isJumping)
+        {
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isJumping = false;
+        }
+    }
 
+    void MovePlayer()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Calculate movement direction based on camera
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+        cameraForward.y = 0; // Ensure movement is horizontal
+        cameraRight.y = 0;
+
+        Vector3 movement = (cameraForward.normalized * verticalInput + cameraRight.normalized * horizontalInput).normalized;
+
+        if (isCrouching)
+        {
+            // Adjust movement speed while crouching
+            movementSpeed /= 2f;
+        }
+
+        playerRigidbody.MovePosition(transform.position + movement * movementSpeed * Time.fixedDeltaTime);
+    }
+
+    void HandleCrouch()
+    {
         if (Input.GetButtonDown("Crouch"))
         {
-            isCrouch = true;
+            isCrouching = true;
+            playerCollider.height = crouchingHeight;
         }
         else if (Input.GetButtonUp("Crouch"))
         {
-            isCrouch = false;
+            isCrouching = false;
+            playerCollider.height = standingHeight;
         }
 
-
-        standing.SetActive(!isCrouch);
-        crouching.SetActive(isCrouch);
-
-        standing.transform.rotation = gameObject.transform.rotation;
-        crouching.transform.rotation = gameObject.transform.rotation;
-
- 
-
-        if (isCrouch)
-        {
-            Camera.main.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - crouching.transform.localScale.y/2, gameObject.transform.position.z);
-            movementSpeed = defaultMoveSpeed / 2;
-
-        }
-        else
-        {
-            Camera.main.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y , gameObject.transform.position.z);
-            movementSpeed = defaultMoveSpeed;
-
-        }
-        groundCheck.objheight = gameObject.transform.localScale.y;
-        if (!groundCheck.GroundCheckMethod())
-        {
-            transform.position = standing.transform.position;
-            Camera.main.transform.position = new Vector3(standing.transform.position.x, standing.transform.position.y + standing.transform.localScale.y, standing.transform.position.z);
-        }
-        else if (Input.GetButtonDown("Jump"))
-        {
-            isJump = true;
-        }
-
-
-
-
-
-        rightdInput = horizontalInput;
-        forwardInput = verticalInput;
-        Vector3 cameraForward = Camera.main.transform.forward;
-
-        Vector3 cameraRight = Camera.main.transform.right;
-        //Debug.Log(cameraForward);
-        cameraForward = new Vector3(cameraForward.x, 0, cameraForward.z);
-        cameraRight = new Vector3(cameraRight.x, 0, cameraRight.z);
-
-        transform.localPosition += cameraForward.normalized * forwardInput * movementSpeed * 0.01f;
-        transform.localPosition += cameraRight.normalized * rightdInput * movementSpeed * 0.01f;
+        transform.localScale = new Vector3(transform.localScale.x, playerCollider.height/2, transform.localScale.z);
     }
 
-    private void FixedUpdate()
+    void HandleJump()
     {
-        if (isJump)
+        if (Input.GetButtonDown("Jump") && !isCrouching)
         {
-            standing.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            standing.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isJump = false;
-
+            isJumping = true;
         }
     }
 
-    public void UpdateObserver()
-    {
-        Handle_Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-    }
 }
