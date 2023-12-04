@@ -16,6 +16,8 @@ public class InputManager : MonoBehaviour
     private bool isCrouching;
     private bool isJumping;
 
+    private float defaultMoveSpeed;
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -24,6 +26,7 @@ public class InputManager : MonoBehaviour
         // Record initial heights
         standingHeight = playerCollider.height;
         crouchingHeight = standingHeight * 0.5f;
+        defaultMoveSpeed = movementSpeed;
 
     }
 
@@ -31,7 +34,7 @@ public class InputManager : MonoBehaviour
     {
         HandleCrouch();
         HandleJump();
-        Camera.main.transform.position = playerRigidbody.position;
+        Camera.main.transform.position = new Vector3(playerRigidbody.position.x, playerRigidbody.position.y + playerCollider.height/2, playerRigidbody.position.z);
     }
 
     void FixedUpdate()
@@ -61,7 +64,11 @@ public class InputManager : MonoBehaviour
         if (isCrouching)
         {
             // Adjust movement speed while crouching
-            movementSpeed /= 2f;
+            movementSpeed = defaultMoveSpeed * 0.5f;
+        }
+        else
+        {
+            movementSpeed = defaultMoveSpeed;
         }
 
         playerRigidbody.MovePosition(transform.position + movement * movementSpeed * Time.fixedDeltaTime);
