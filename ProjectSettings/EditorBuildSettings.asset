@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/3DENGPRAC2.unity
+    guid: cd368978b0e05054d9acea28dd0e1495
   m_configObjects: {}

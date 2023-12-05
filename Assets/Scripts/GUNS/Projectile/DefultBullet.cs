@@ -9,6 +9,9 @@ public class DefultBullet : Projectile
 
     public Vector3 dire;
 
+    [SerializeField]
+    CameraShake shake;
+
     private void Start()
     {
         po = GetComponent<PooledObject>();
@@ -35,13 +38,20 @@ public class DefultBullet : Projectile
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Hit");
-        if (collision.gameObject.GetComponent<Crate>() != null)
+
+        if (collision.transform.GetComponent<Destructable>() != null)
         {
-            Crate c = collision.gameObject.GetComponent<Crate>();
-            c.OnDamaged(damage);
-            Reset();
-            po.Release();
+            collision.transform.GetComponent<Destructable>().takeDmg(damage);
+
+
         }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            shake.Shake();
+        }
+
+        Reset();
+        po.Release();
     }
 
     private void Reset()

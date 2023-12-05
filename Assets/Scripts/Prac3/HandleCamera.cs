@@ -18,7 +18,7 @@ public class HandleCamera : MonoBehaviour,IObserver
 
     private void Awake()
     {
-        // Ensure there's only one instance of AKObjPoolManager in the scene
+        // Ensure there's only one instance in the scene
         if (instance != null && instance != this)
         {
             Destroy(gameObject); // Destroy duplicate instances

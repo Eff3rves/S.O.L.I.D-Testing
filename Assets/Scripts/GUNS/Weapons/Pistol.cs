@@ -34,10 +34,9 @@ public class Pistol : BaseWeapon
 
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
                 {
-                    if(hit.transform.GetComponent<Crate>() != null)
+                    if(hit.transform.GetComponent<Destructable>() != null)
                     {
-                        Crate c = hit.transform.GetComponent<Crate>();
-                        c.OnDamaged(10);
+                        hit.transform.GetComponent<Destructable>().takeDmg(10);
                     }
 
                 }

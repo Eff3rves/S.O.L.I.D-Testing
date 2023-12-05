@@ -11,7 +11,7 @@ public class GroundCheck : MonoBehaviour
     public bool GroundCheckMethod()
     {
         RaycastHit hit;
-        if (Physics.Raycast(gameObject.transform.position, -Vector3.up, out hit, objheight*1.01f))
+        if (Physics.Raycast(gameObject.transform.position, -Vector3.up, out hit, objheight))
         {
             //Debug.Log("can jump");
             return true;

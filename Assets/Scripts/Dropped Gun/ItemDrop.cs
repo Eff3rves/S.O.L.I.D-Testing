@@ -15,6 +15,13 @@ public class ItemDrop : MonoBehaviour
     [SerializeField]
     private Transform dropLoc;
 
+    LoadOutManager loadOut;
+
+    private void Start()
+    {
+        loadOut = LoadOutManager.Instance;
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Drop"))
@@ -27,7 +34,7 @@ public class ItemDrop : MonoBehaviour
                 itemPickUp.ammoInClip = ammoManager.ammoInClip;
                 itemPickUp.totalAmmo = ammoManager.totalAmmo;
             }
-
+            loadOut.RemoveWeapon();
             Destroy(gameObject);
         }
     }

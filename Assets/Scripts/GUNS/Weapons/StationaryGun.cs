@@ -84,6 +84,8 @@ public class StationaryGun : BaseWeapon
 
         if (inUse)
         {
+            ammoManager.enabled = true;
+
             fPSController.RemoveObserver(handleCamera);
 
             float axisX = Input.GetAxis("Mouse X");
@@ -93,7 +95,7 @@ public class StationaryGun : BaseWeapon
             verticalRotation = Mathf.Clamp(verticalRotation, -30, 30);
             horizontalRotation = Mathf.Clamp(horizontalRotation, -90, 90);
 
-            TurretHead.transform.rotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
+            TurretHead.transform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
 
             Camera.main.transform.rotation = TurretHead.transform.rotation;
 
@@ -103,6 +105,7 @@ public class StationaryGun : BaseWeapon
             {
                 loadOut.getCurrWeapon().SetActive(false);
             }
+            loadOut.enabled = false;
 
             cooldown += Time.deltaTime;
             fired = false;
@@ -134,6 +137,7 @@ public class StationaryGun : BaseWeapon
             //once the weapon is shot, start to notify every observer
             if (Shoot())
             {
+
                 GetComponent<WeaponHandler>().NotifyObservers();
                 //sets loadout to cannot switch
                 loadOut.canSwitch = false;
@@ -145,6 +149,8 @@ public class StationaryGun : BaseWeapon
         }
         else
         {
+            ammoManager.enabled = false;
+            loadOut.enabled = true;
             if (loadOut.getCurrWeapon() != null)
             {
                 loadOut.getCurrWeapon().SetActive(true);

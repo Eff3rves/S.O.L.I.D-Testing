@@ -13,12 +13,17 @@ public class Sniper : BaseWeapon,baseAim
 
     public float zoom;
 
+    FPSController FC;
+    HeadBob headBob;
+
     // Start is called before the first frame update
     void Start()
     {
         fireRate = 0.25f;
         cooldown = 0.5f;
         loadOut = LoadOutManager.Instance;
+        FC = FPSController.Instance;
+        headBob = HeadBob.Instance;
 
         scopedCrosshair = GameObject.Find("Canvas");
         foreach(Transform i in scopedCrosshair.transform)
@@ -39,6 +44,8 @@ public class Sniper : BaseWeapon,baseAim
     {
         cooldown += Time.deltaTime;
         Aim();
+
+    
     }
 
     public void Aim()
@@ -47,10 +54,13 @@ public class Sniper : BaseWeapon,baseAim
         {
             isScoped = true;
             Camera.main.fieldOfView = DefaultFOV - zoom;
+            FC.RemoveObserver(headBob);
+
         }
         else if(Input.GetButtonUp("Fire2")) {
             isScoped = false;
             Camera.main.fieldOfView = DefaultFOV;
+            FC.RegisterObserver(headBob);
         }
         gameObject.GetComponent<MeshRenderer>().enabled=!isScoped;
         scopedCrosshair.SetActive(isScoped);
@@ -68,10 +78,9 @@ public class Sniper : BaseWeapon,baseAim
 
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
                 {
-                    if (hit.transform.GetComponent<Crate>() != null)
+                    if (hit.transform.GetComponent<Destructable>() != null)
                     {
-                        Crate c = hit.transform.GetComponent<Crate>();
-                        c.OnDamaged(20);
+                        hit.transform.GetComponent<Destructable>().takeDmg(10);
                     }
 
                 }

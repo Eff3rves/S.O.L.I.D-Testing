@@ -6,7 +6,7 @@ public class LoadOutManager : MonoBehaviour
 {
     public List<GameObject> weaponList;
 
-    private int currentWeapon;
+    public int currentWeapon;
 
     // Singleton instance of the AKObjPoolManager
     private static LoadOutManager instance;
@@ -48,6 +48,13 @@ public class LoadOutManager : MonoBehaviour
 
         Listcount = weaponList.Count;
 
+        Check();
+
+        weaponList[currentWeapon].SetActive(true);
+    }
+
+    public void Check()
+    {
         //remove extra things in the list
         //checks the weaponlist 
         for (currentWeapon = 0; currentWeapon < weaponList.Count; currentWeapon++)
@@ -58,32 +65,46 @@ public class LoadOutManager : MonoBehaviour
             }
         }
 
-        //loops through to find deactivate the 
-        for (currentWeapon = 0; currentWeapon < weaponList.Count ; currentWeapon++)
+        //loops through to deactivate rest
+        for (currentWeapon = 0; currentWeapon < weaponList.Count; currentWeapon++)
         {
             weaponList[currentWeapon].SetActive(false);
         }
 
         currentWeapon = 0;
-
-        weaponList[currentWeapon].SetActive(true);
     }
+
     // Update is called once per frame
     void Update()
     {
 
+        if(weaponList.Count < currentWeapon)
+        {
+            currentWeapon = 0;
+        }
+
         if (weaponList.Count > 0)
         {
-            if (Input.GetButtonDown("Drop"))
+            int weaponcount = 0;
+            foreach (var weapon in weaponList)
             {
-                if (weaponList.Count > 0)
+                weaponcount++; 
+
+                if (weapon.activeSelf)
                 {
-                    weaponList.Remove(weaponList[currentWeapon]);
+                    break;
                 }
-                return;
+                else
+                {
+                    if(weaponcount == weaponList.Count)
+                    {
+                        weapon.SetActive(true);
+                        currentWeapon = weaponcount - 1;
+                    }
+                }
             }
 
-            if (Listcount > weaponList.Count && weaponList.Count > 0)
+                if (Listcount > weaponList.Count)
             {
                 currentWeapon = 0;
                 weaponList[currentWeapon].SetActive(true);
@@ -131,6 +152,11 @@ public class LoadOutManager : MonoBehaviour
     public void addWeapon(GameObject newWeapon)
     {
         weaponList.Add(newWeapon);
+    }
+
+    public void RemoveWeapon()
+    {
+        weaponList.Remove(weaponList[currentWeapon]);
     }
 
     //using scroll wheel to switch weapon

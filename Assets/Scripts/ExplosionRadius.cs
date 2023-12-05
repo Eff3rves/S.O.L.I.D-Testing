@@ -12,15 +12,12 @@ public class ExplosionRadius : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Crate>() != null)
+
+        if (other.transform.GetComponent<Destructable>() != null)
         {
-            Debug.Log("Hit Crate");
-            Crate crate = other.GetComponent<Crate>();
-            if (crate != null)
-            {
-                crate.OnDamaged(damage);
-            }
+            other.transform.GetComponent<Destructable>().takeDmg(10);
         }
+
         else if (other.CompareTag("Player"))
         {
             Debug.Log("Hit Player");

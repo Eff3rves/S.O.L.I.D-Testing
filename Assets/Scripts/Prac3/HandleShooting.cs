@@ -47,10 +47,14 @@ public class HandleShooting : MonoBehaviour,IObserver
 
         }
 
-        if(ammoText != null && currWeapon.activeSelf)
+        if(currWeapon != null)
         {
-            updateAmmoText();
+            if (ammoText != null && currWeapon.activeSelf)
+            {
+                updateAmmoText();
+            }
         }
+
 
     }
 
